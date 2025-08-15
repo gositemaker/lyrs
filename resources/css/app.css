@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.css"; /* optional for icons */
+
+
+@font-face {
+    font-family: "FONTSPRING DEMO - The Seasons";
+    src: url("/fonts/the-seasons/the-seasons.woff2") format("woff2"),
+         url("/fonts/the-seasons/the-seasons.woff") format("woff"),
+         url("/fonts/the-seasons/the-seasons.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Marge";
+    src: url("/fonts/marge/marge.woff2") format("woff2"),
+         url("/fonts/marge/marge.woff") format("woff"),
+         url("/fonts/marge/marge.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}

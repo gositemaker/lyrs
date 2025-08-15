@@ -1,0 +1,214 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container py-5">
+    <h2 class="mb-4">Checkout</h2>
+
+    @if ($items->isEmpty())
+        <div class="alert alert-info">Your cart is empty. <a href="{{ route('courses.index') }}">Browse courses</a>.</div>
+    @else
+        <div class="row">
+            {{-- Cart Summary --}}
+            <div class="col-md-8">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-light fw-semibold">
+                        Your Courses
+                    </div>
+                    <div class="card-body">
+                        @foreach ($items as $item)
+                            <div class="d-flex justify-content-between border-bottom py-2">
+                                <div>
+                                    <strong>{{ $item->course->name }}</strong>
+                                    <p class="mb-0 text-muted">₹{{ number_format($item->course->price, 0) }}</p>
+                                </div>
+                                <form action="{{ route('cart.remove', $item->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-outline-danger">Remove</button>
+                                </form>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
+            {{-- Total + Payment --}}
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="mb-3">Total: ₹{{ number_format($total, 0) }}</h5>
+
+                        <form action="{{ route('payment.process') }}" method="POST">
+                            @csrf
+
+                            <div class="mb-3">
+                                <label for="payment_method" class="form-label">Choose Payment Method</label>
+                                <select name="payment_method" id="payment_method" class="form-select" required>
+                                    <option value="razorpay">Razorpay</option>
+                                    <option value="stripe">Stripe</option>
+                                </select>
+                            </div>
+
+                            <button class="btn btn-primary w-100" type="submit">Pay Now</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+</div>
+@endsection
+
+Route::get('/cart', [CartController::class, 'view'])->name('cart.view');
+Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout')->middleware('auth');
+
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+    Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('payment.success'); 
+
+
+
+    <!-- Testimonials -->
+<section class="py-5" style="background: url('{{ asset('images/testono.png') }}') center/cover no-repeat;">
+    <div class="container text-center text-white">
+        <h2 class="mb-3" style="font-family: 'Marge', serif;letter-spacing: 4%;font-weight: 400;font-size: 72px;">
+            What Our Clients Say
+        </h2>
+        <p class="mb-5" style="max-width: 700px; margin: auto;">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+        </p>
+
+        @if($testimonials->count() > 3)
+            <!-- Carousel -->
+            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @foreach($testimonials->chunk(3) as $index => $chunk)
+                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                            <div class="row justify-content-center g-4">
+                                @foreach($chunk as $testimonial)
+                                    <div class="col-md-4">
+                                        <div class="position-relative bg-white bg-opacity-25 rounded-4 p-4 pt-5" style="backdrop-filter: blur(10px);">
+                                            <div class="position-absolute top-0 start-50 translate-middle">
+                                                <img src="{{ asset($testimonial->photo) }}" 
+                                                    alt="{{ $testimonial->name }}" 
+                                                    class="rounded-circle border border-3 border-white shadow" 
+                                                    style="width: 100px; height: 100px; object-fit: cover;">
+                                            </div>
+                                            <p class="mt-4 mb-3" style="color: white; font-size: 14px;">
+                                                {{ $testimonial->message }}
+                                            </p>
+                                            <strong style="color: white; font-size: 18px;">{{ $testimonial->name }}</strong>
+                                            <div style="font-size: 12px;">{{ $testimonial->designation }}</div>
+                                        </div>
+
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <!-- Navigation -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        @else
+            <!-- Static Display -->
+            <div class="row justify-content-center g-4">
+                @foreach($testimonials as $testimonial)
+                    <div class="col-md-4">
+                        <div class="position-relative bg-white bg-opacity-25 rounded-4 p-4 pt-5" style="backdrop-filter: blur(10px);">
+                            <div class="position-absolute top-0 start-50 translate-middle">
+                                <img src="{{ asset($testimonial->photo) }}" 
+                                    alt="{{ $testimonial->name }}" 
+                                    class="rounded-circle border border-3 border-white shadow" 
+                                    style="width: 100px; height: 100px; object-fit: cover;">
+                            </div>
+                            <p class="mt-4 mb-3" style="color: white; font-size: 14px;">
+                                {{ $testimonial->message }}
+                            </p>
+                            <strong style="color: white; font-size: 18px;">{{ $testimonial->name }}</strong>
+                            <div style="font-size: 12px;">{{ $testimonial->designation }}</div>
+                        </div>
+
+                    </div>
+                @endforeach
+            </div>
+        @endif
+    </div>
+</section>
+
+
+
+
+@extends('layouts.app')
+@section('content')
+
+<div class="container">
+    <h2>Your Cart</h2>
+    @if($items->isEmpty())
+        <p>No courses in your cart.</p>
+    @else
+        @foreach ($items as $item)
+            <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                <div>
+                    <strong>{{ $item->course->name }}</strong><br>
+                    ₹{{ $item->course->price }}
+                </div>
+                <form action="{{ route('cart.remove', $item->id) }}" method="POST">
+                    @csrf @method('DELETE')
+                    <button class="btn btn-sm btn-danger">Remove</button>
+                </form>
+            </div>
+        @endforeach
+
+
+        <a href="{{ route('checkout.index') }}" class="btn btn-success mt-4">Proceed to Checkout</a>
+    @endif
+</div>
+@endsection
+
+
+
+@extends('layouts.app')
+
+@section('content')
+<div class="container py-5">
+    <h2 class="mb-4">Checkout</h2>
+
+    <ul class="list-group mb-4">
+        @foreach($items as $item)
+            <li class="list-group-item d-flex justify-content-between">
+                <strong>{{ $item->course->name }}</strong>
+                <span>₹{{ $item->course->price }}</span>
+            </li>
+        @endforeach
+        <li class="list-group-item d-flex justify-content-between">
+            <strong>Total</strong>
+            <span>₹{{ $total }}</span>
+        </li>
+    </ul>
+
+    <form action="{{ route('razorpay.payment') }}" method="POST">
+        @csrf
+        <script src="https://checkout.razorpay.com/v1/checkout.js"
+                data-key="{{ env('RAZORPAY_KEY') }}"
+                data-amount="{{ $total * 100 }}"
+                data-currency="INR"
+                data-buttontext="Pay with Razorpay"
+                data-name="Energywork by Annesha"
+                data-description="Course Purchase"
+                data-image="{{ asset('images/logo.png') }}"
+                data-prefill.name="{{ Auth::user()->name }}"
+                data-prefill.email="{{ Auth::user()->email }}"
+                data-theme.color="#647E64">
+        </script>
+        <input type="hidden" name="hidden">
+    </form>
+</div>
+@endsection
