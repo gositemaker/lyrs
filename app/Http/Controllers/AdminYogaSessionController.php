@@ -9,102 +9,98 @@ use Illuminate\Http\Request;
 use App\Models\Trainer;
 class AdminYogaSessionController extends Controller
 {
+    // List all sessions
     public function index() {
-        
-        //$sessions = YogaSession::with('timeSlots')->get();
-        $sessions = YogaSession::with(['trainer', 'timeSlots'])->get();
-
+        $sessions = YogaSession::with(['trainer'])->latest()->get();
         return view('admin.yoga_sessions.index', compact('sessions'));
     }
 
+    // Show create form
     public function create()
     {
-        $trainers = Trainer::all(); // Fetch all trainers
-        $categories = YogaCategory::where('type', 'session')->get();
-        return view('admin.yoga_sessions.create', compact('categories', 'trainers'));
+        $trainers   = Trainer::orderBy('name')->get();
+        $categories = YogaCategory::orderBy('name')->get();
+        return view('admin.yoga_sessions.create', compact('trainers', 'categories'));
     }
-    
 
+    // Store new session
     public function store(Request $request)
     {
-        YogaSession::create($request->all());
-        return back()->with('success', 'Session created successfully.');
-        // $validated = $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'category' => 'required|string|max:255',
-        //     'description' => 'nullable|string',
-        //     'duration' => 'required|integer',
-        //     'price' => 'required|numeric',
-        //     'trainer_id' => 'required|exists:trainers,id',
-        //     'status' => 'required|in:Available,Booked',
-        // ]);
-    
-        // YogaSession::create($validated);
-    
-        // return redirect()->route('admin.yoga_sessions.index')->with('success', 'Session created successfully.');
+        $validated = $request->validate([
+            'name'        => 'required|string',
+            'category'    => 'required|string',  // saving category name not id
+            'description' => 'nullable|string',
+            'duration'    => 'required|integer',
+            'price'       => 'required|numeric',
+            'trainer_id'  => 'required|exists:trainers,id',
+            'status'      => 'required|in:Available,Booked',
+            'image'       => 'nullable|image|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('sessions', 'public');
+        }
+
+        YogaSession::create($validated);
+
+        return redirect()->route('admin.yoga_sessions.index')
+                         ->with('success', 'Session created successfully');
     }
-    
-    public function show($id)
-    {
-        // Eager load category, trainer, timeSlots, etc. if needed
-        $session = YogaSession::with(['category', 'trainer', 'timeSlots'])->findOrFail($id);
-    
-        $categories = YogaCategory::all();
-        $trainers = Trainer::all();
-    
-        return view('admin.yoga_sessions.show', compact('session', 'categories', 'trainers'));
-    }
-    
-    // public function edit($id) {
-    //     $session = YogaSession::with('timeSlots')->findOrFail($id);
-    //     return view('admin.yoga_sessions.edit', compact('session'));
-    // }
+
+    // Show edit form
     public function edit($id)
     {
-        //$session = YogaSession::findOrFail($id);
-        $session = YogaSession::with('timeSlots')->findOrFail($id);
-        $categories = YogaCategory::all();
+        $session    = YogaSession::findOrFail($id);
+        $trainers   = Trainer::orderBy('name')->get();
+        $categories = YogaCategory::orderBy('name')->get();
 
-        $trainers = Trainer::all();
-        return view('admin.yoga_sessions.edit', compact('session', 'categories', 'trainers'));
-
-        //return view('admin.yoga_sessions.edit', compact('session', 'trainers'));
+        return view('admin.yoga_sessions.edit', compact('session','trainers','categories'));
     }
-    
+
+    // Update session
     public function update(Request $request, $id)
     {
         $session = YogaSession::findOrFail($id);
-    
+
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'category' => 'required|string|max:255',
+            'name'        => 'required|string',
+            'category'    => 'required|string',
             'description' => 'nullable|string',
-            'duration' => 'required|integer',
-            'price' => 'required|numeric',
-            'trainer_id' => 'required|exists:trainers,id',
-            'status' => 'required|in:Available,Booked',
+            'duration'    => 'required|integer',
+            'price'       => 'required|numeric',
+            'trainer_id'  => 'required|exists:trainers,id',
+            'status'      => 'required|in:Available,Booked',
+            'image'       => 'nullable|image|max:2048',
         ]);
-    
+
+        if ($request->hasFile('image')) {
+            // remove old
+            if ($session->image) {
+                \Storage::disk('public')->delete($session->image);
+            }
+            $validated['image'] = $request->file('image')->store('sessions', 'public');
+        }
+
         $session->update($validated);
-    
-        return redirect()->route('admin.yoga_sessions.index')->with('success', 'Session updated successfully.');
-    }
-    
 
-    public function destroy($id) {
-        YogaSession::findOrFail($id)->delete();
-        return back()->with('success', 'Session deleted');
+        return redirect()->route('admin.yoga_sessions.index')
+                         ->with('success', 'Session updated successfully');
     }
 
-    public function addSlot(Request $request, $id) {
-        $request->validate(['start_time' => 'required|date']);
-        TimeSlot::create(['yoga_session_id' => $id, 'start_time' => $request->start_time]);
-        return back()->with('success', 'Slot added');
+    // Delete session
+    public function destroy($id)
+    {
+        $session = YogaSession::findOrFail($id);
+
+        if ($session->image) {
+            \Storage::disk('public')->delete($session->image);
+        }
+
+        $session->delete();
+
+        return redirect()->route('admin.yoga_sessions.index')
+                         ->with('success', 'Session deleted successfully');
     }
 
-    public function deleteSlot($id) {
-        TimeSlot::findOrFail($id)->delete();
-        return back()->with('success', 'Slot removed');
-    }
 }
 

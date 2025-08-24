@@ -26,83 +26,86 @@
         </div>
     </div>
 </div>
-
 {{-- Grouped Sessions --}}
 @php
-    $groupedSessions = $ysessions->groupBy('category.name');
-    $sectionImages = [
-        'Beginner Yoga' => 'images/yoga_beginner.jpg',
-        'Advanced Yoga' => 'images/yoga_advanced.jpg',
-        'Meditation & Breathwork' => 'images/yoga_meditation.jpg',
-    ];
+    $groupedSessions = $ysessions->groupBy('category');
 @endphp
 
 <div class="container py-5">
     @foreach ($groupedSessions as $category => $sessionGroup)
-    <div class="mb-5">
-        <h3 class="mb-4 custom-course-heading">{{ $category }}</h3>
+        <div class="mb-5">
+            <h3 class="mb-4 custom-course-heading" style="font-family: 'Marge', serif; font-size: 52px; line-height: 58px; letter-spacing: 4%; text-transform: capitalize;">{{ $category }}</h3>
 
-        <div class="d-flex flex-column flex-md-row gap-4">
-            {{-- Left Category Image --}}
-            <div class="flex-shrink-0 w-100 w-md-40" style="min-height: 100%;">
-                <img src="{{ asset($sectionImages[$category] ?? 'images/default_yoga.jpg') }}" 
-                     alt="{{ $category }}" 
-                     class="w-100 h-100 rounded shadow-sm" 
-                     style="object-fit: cover; min-height: 100%;">
-            </div>
-
-            {{-- Session Cards --}}
-            <div class="flex-grow-1">
+            <div class="session-group">
                 @foreach ($sessionGroup as $session)
-                <div class="card mb-3 border-0 shadow-sm rounded-3 course-card transition">
-                    <div class="card-body d-flex justify-content-between align-items-start">
-                        <div>
-                            <h5 class="fw-semibold">{{ $session->title }}</h5>
-                            <p class="mb-1 text-muted">
-                                ₹{{ number_format($session->price_inr, 0) }} / 
-                                ${{ number_format($session->price_usd, 0) }} USD
-                                @if($session->duration)
-                                    – {{ $session->duration }}
-                                @endif
-                            </p>
-                            <p class="text-muted" style="font-size: 14px;">
-                                {{ \Illuminate\Support\Str::limit($session->description, 150) }}
-                            </p>
+                <div class="session-card mb-4">
+                    <div class="row g-0 align-items-center">
+                        
+                        {{-- Left Image --}}
+                        <div class="col-md-5" style="padding : 20px;">
+                            <img src="{{ $session->image ? asset('storage/'.$session->image) : asset('images/default_yoga.jpg') }}" 
+                                 alt="{{ $session->name }}" 
+                                 class="img-fluid session-img">
                         </div>
 
-                        {{-- Book Button --}}
-                        <form action="{{ route('cart.add') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="session_id" value="{{ $session->id }}">
-                            <button class="btn btn-outline-success" type="submit">
-                                Book Session
-                            </button>
-                        </form>
+                        {{-- Right Content --}}
+                        <div class="col-md-7">
+                            <div class="p-4">
+                                <h5 class="fw-semibold mb-2" style="Color:#8C5737;font-size: 28px; font-family: 'Inter'; ">{{ $session->name }}</h5>
+                                <p class="mb-1 text-muted small">
+                                    ₹{{ number_format($session->price, 0) }} / 
+                                    ${{ number_format(($session->price)/80, 0) }} USD
+                                    @if($session->duration)
+                                        – {{ $session->duration }} mins
+                                    @endif
+                                </p>
+                                <p class="text-muted small">
+                                    {{ \Illuminate\Support\Str::limit($session->description, 120) }}
+                                </p>
+                                <a href="{{ route('yoga_sessions.show', $session) }}" 
+                                   class="btn btn-dark rounded-pill btn-sm px-4" style="background-color:#8C5737">
+                                   Book Session
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 @endforeach
             </div>
         </div>
-    </div>
     @endforeach
 </div>
 
-{{-- Optional Styling --}}
+{{-- Styling --}}
 <style>
-    @media (min-width: 768px) {
-        .w-md-40 {
-            width: 40% !important;
-        }
-    }
-
-    .course-card {
+    .session-card {
+        background-color: #f7efec;
+        border: 1px solid #e5c7b8;
+        border-radius: 12px;
+        overflow: hidden;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .course-card:hover {
+    .session-card:hover {
         transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .session-img {
+        width: 100%;
+        height: 80%;
+        object-fit: fit;
+        border-right: 1px solid #e5c7b8;
+        border-radius : 10px;
+
+    }
+
+    .session-group {
+        padding: 0;
     }
 </style>
+
+
 
 @endsection

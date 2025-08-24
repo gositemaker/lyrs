@@ -15,9 +15,9 @@
 }
 @font-face {
     font-family: "Marge";
-    src: url("/fonts/marge/marge.woff2") format("woff2"),
-         url("/fonts/marge/marge.woff") format("woff"),
-         url("/fonts/marge/marge.ttf") format("truetype");
+    src: url("../fonts/marge/marge.woff2") format("woff2"),
+         url("../fonts/marge/marge.woff") format("woff"),
+         url("../fonts/marge/marge.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
 }

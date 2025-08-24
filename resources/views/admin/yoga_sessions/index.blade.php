@@ -1,73 +1,61 @@
 @extends('layouts.admin')
 
+@section('title', 'Yoga Sessions')
+
 @section('content')
 <div class="container py-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="fw-bold">Timeslot Management</h2>
-            <p class="text-muted">Create and manage healing session availability</p>
-        </div>
-        <a href="{{ route('admin.yoga_sessions.create') }}" class="btn btn-warning text-white">
-            <i class="bi bi-plus-circle"></i> Create Timeslot
-        </a>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Yoga Sessions</h3>
+        <a href="{{ route('admin.yoga_sessions.create') }}" class="btn btn-primary">+ Add New</a>
     </div>
 
-    @foreach($sessions as $session)
-    <div class="card shadow-sm mb-4">
-        <div class="card-body d-md-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center mb-3 mb-md-0">
-                <div class="me-3 text-center bg-warning bg-opacity-25 p-3 rounded">
-                    <i class="bi bi-calendar-event fs-4 text-warning"></i><br>
-                    <strong>{{ \Carbon\Carbon::parse($session->created_at)->format('d/m/Y') }}</strong>
-                </div>
-                <div>
-                    <h5 class="mb-1">
-                        <strong style="margin-right:5px">{{ $session->name }}</strong>
-                        <i class="bi bi-clock me-1"></i>
-                        ({{ $session->duration }} min)
-                    </h5>
-                    <div class="text-muted">
-                        <i class="bi bi-person"></i> {{ $session->trainer->name }}
-                    </div>
-                    <div class="text-muted small mb-1">
-                        {{ $session->description }}
-                    </div>
-                    <div class="text-muted small">
-                        <i class="bi bi-collection"></i> Total Slots: {{ optional($session->timeSlots)->count() }}
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
 
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-end">
-                @if($session->is_booked)
-                    <span class="badge bg-warning text-dark mb-2">Booked</span>
-                @else
-                    <span class="badge bg-success mb-2">Available</span>
-                @endif
-
-                <div class="btn-group mb-2" role="group">
-                    <a href="{{ route('admin.yoga_sessions.show', $session->id) }}" class="btn btn-outline-primary">
-                        <i class="bi bi-eye"></i>
-                    </a>
-                    <a href="{{ route('admin.yoga_sessions.edit', $session->id) }}" class="btn btn-outline-secondary">
-                        <i class="bi bi-pencil"></i>
-                    </a>
-                    <form action="{{ route('admin.yoga_sessions.destroy', $session->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-outline-danger">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </form>
-                </div>
-
-                <a href="{{ route('admin.time_slots.index', $session->id) }}" class="btn btn-sm btn-warning mt-1 text-white">
-                    <i class="bi bi-clock-history"></i> Manage Slots
-                </a>
-            </div>
-        </div>
-    </div>
-    @endforeach
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Session Name</th>
+                <th>Category</th>
+                <th>Trainer</th>
+                <th>Duration</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Image</th>
+                <th width="150">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($sessions as $session)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $session->name }}</td>
+                    <td>{{ $session->category }}</td>
+                    <td>{{ $session->trainer->name ?? 'N/A' }}</td>
+                    <td>{{ $session->duration }} mins</td>
+                    <td>₹{{ $session->price }}</td>
+                    <td><span class="badge bg-{{ $session->status == 'Available' ? 'success':'secondary' }}">{{ $session->status }}</span></td>
+                    <td>
+                        @if($session->image)
+                            <img src="{{ asset('storage/'.$session->image) }}" width="60">
+                        @else
+                            <small>No Image</small>
+                        @endif
+                    </td>
+                    <td>
+                        <a href="{{ route('admin.yoga_sessions.edit', $session->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <form action="{{ route('admin.yoga_sessions.destroy', $session->id) }}" method="POST" class="d-inline">
+                            @csrf @method('DELETE')
+                            <button onclick="return confirm('Are you sure?')" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            @empty
+                <tr><td colspan="9" class="text-center">No sessions available</td></tr>
+            @endforelse
+        </tbody>
+    </table>
 </div>
 @endsection

@@ -8,9 +8,11 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
-        body { font-family: 'Segoe UI', sans-serif;  }
+        body {}
         .navbar { background-color: #fffdf3; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .nav-link:hover { color: #2b4d3f !important; }
         .btn-rounded { border-radius: 30px; }
@@ -61,7 +63,7 @@
 .text-marge{
     font-family: "Marge", serif;
     font-weight: 400;
-    font-style: Regular;
+    font-style: normal;
     font-size: 72px;
     /* leading-trim is experimental, most browsers ignore it */
     line-height: 72px;
@@ -84,12 +86,45 @@
     overflow: hidden;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
+.lead{
+    font-family: 'Inter', sans-serif;
+    font-weight: 200; /* Light */
+    font-style: normal; /* 'Light' is handled via font-weight */
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: 0; /* px not needed */
+    text-align: center;
+    vertical-align: middle;
+    margin:auto;
+}
 
 .trainer-image-wrapper img.trainer-photo {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+}
+.video-container {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.video-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90.06deg, 
+        #060606 -15.7%, 
+        rgba(6, 6, 6, 0.4) 49.51%, 
+        #060606 120.75%
+    );
+    pointer-events: none; /* ensures clicks pass through */
 }
 
     </style>

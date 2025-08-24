@@ -25,7 +25,11 @@
                 🧘 Yoga Categories
             </a>
         </li>
-
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.availability.index') }}">
+                Manage Availability
+            </a>
+        </li>
         <li class="nav-item"><a href="#" class="nav-link">Blog Posts</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Testimonials</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Mail Subscribers</a></li>

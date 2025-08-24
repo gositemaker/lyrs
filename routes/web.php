@@ -16,9 +16,11 @@ use App\Http\Controllers\AdminYogaCategoryController;
 use App\Http\Controllers\AdminTimeSlotController;
 use App\Http\Controllers\YogaBookingController;
 use App\Http\Controllers\HomeController;
-// Route::post('/payment/process', [PaymentController::class, 'process'])->name('payment.process')->middleware('auth');
-// Route::get('/payment/razorpay', [PaymentController::class, 'razorpayCheckout'])->name('razorpay.checkout');
-// Route::get('/payment/stripe', [PaymentController::class, 'stripeCheckout'])->name('stripe.checkout');
+use App\Http\Controllers\SessionCatalogController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\AdminAvailabilityController as AdminAvailability;
+
+
 Route::get('/checkout', [RazorpayPaymentController::class, 'checkout'])->name('razorpay.checkout')->middleware('auth');
 Route::post('/razorpay/payment', [RazorpayPaymentController::class, 'payment'])->name('razorpay.payment')->middleware('auth');
 
@@ -41,14 +43,16 @@ Route::prefix('admin')->group(function () {
     Route::put('yoga-sessions/{id}', [AdminYogaSessionController::class, 'update'])->name('admin.yoga_sessions.update');
     Route::delete('yoga-sessions/{id}', [AdminYogaSessionController::class, 'destroy'])->name('admin.yoga_sessions.destroy');
     Route::resource('yoga_categories', AdminYogaCategoryController::class)->names('admin.yoga_categories');
-   // Route::resource('yoga-sessions', AdminYogaSessionController::class);
-   Route::get('yoga-sessions/{id}', [AdminYogaSessionController::class, 'show'])->name('admin.yoga_sessions.show');
 
-    Route::get('yoga-sessions/{session}/slots', [AdminTimeSlotController::class, 'index'])->name('admin.time_slots.index');
-    Route::get('yoga-sessions/{session}/slots/create', [AdminTimeSlotController::class, 'create'])->name('admin.time_slots.create');
-    Route::post('yoga-sessions/{session}/slots', [AdminTimeSlotController::class, 'store'])->name('admin.time_slots.store');
-    Route::delete('yoga-sessions/{session}/slots/{slot}', [AdminTimeSlotController::class, 'destroy'])->name('admin.time_slots.destroy');
- 
+    Route::get('/availability', [AdminAvailability::class, 'index'])->name('admin.availability.index');
+    Route::post('/availability', [AdminAvailability::class, 'store'])->name('admin.availability.store');
+    Route::put('/availability/{id}', [AdminAvailability::class, 'update'])->name('admin.availability.update');
+    Route::delete('/availability/{id}', [AdminAvailability::class, 'destroy'])->name('admin.availability.destroy');
+   // Route::delete('/availability/{availability}', [AdminAvailability::class, 'destroy'])->name('admin.availability.destroy');
+   Route::get('/availability/calendar', [AdminAvailability::class,'calendar'])->name('admin.availability.calendar');
+   Route::get('/availability/view', [AdminAvailability::class,'view'])->name('admin.availability.view');
+
+
 });
 Route::get('/courses', [CourseController::class, 'userIndex'])->name('courses.index');
 Route::get('/courses/{trainer}', [CourseController::class, 'trainerCourses'])->name('courses.trainer');
@@ -64,6 +68,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/sessions/{session}/book', [BookingController::class, 'store'])->name('sessions.book');
+    Route::get('/booking/{booking}/success', [BookingController::class, 'success'])->name('booking.success');
 
 
 });
@@ -71,12 +77,13 @@ Route::middleware('auth')->group(function () {
 
 
 // User Routes
-Route::get('/yoga-sessions', [UserYogaSessionController::class, 'index'])->name('yoga_sessions.index');
-Route::get('/yoga-sessions/{id}', [UserYogaSessionController::class, 'show'])->name('yoga_sessions.show');
-Route::post('/yoga-sessions/{id}/book', [UserYogaSessionController::class, 'book'])->middleware('auth')->name('yoga_sessions.book');
-Route::get('/my-bookings', [UserYogaSessionController::class, 'myBookings'])->middleware('auth')->name('yoga_sessions.myBookings');
-Route::get('/book-session', [YogaBookingController::class, 'index'])->name('book.session');
-Route::get('/book-session/{trainer}', [YogaBookingController::class, 'trainerSessions'])->name('yoga_sessions.by_trainer');
-
+// Route::get('/yoga-sessions', [UserYogaSessionController::class, 'index'])->name('yoga_sessions.index');
+// Route::get('/yoga-sessions/{id}', [UserYogaSessionController::class, 'show'])->name('yoga_sessions.show');
+// Route::post('/yoga-sessions/{id}/book', [UserYogaSessionController::class, 'book'])->middleware('auth')->name('yoga_sessions.book');
+// Route::get('/my-bookings', [UserYogaSessionController::class, 'myBookings'])->middleware('auth')->name('yoga_sessions.myBookings');
+Route::get('/book-session', [SessionCatalogController::class, 'index'])->name('book.session');
+Route::get('/book-session/{trainer}', [SessionCatalogController::class, 'trainerSessions'])->name('yoga_sessions.by_trainer');
+Route::get('/sessions/{session}', [SessionCatalogController::class, 'show'])->name('yoga_sessions.show');
+Route::get('/sessions/{session}/slots', [BookingController::class, 'slots'])->name('sessions.slots');
 
 require __DIR__.'/auth.php';

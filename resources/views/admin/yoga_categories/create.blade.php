@@ -22,7 +22,7 @@
         <div class="form-group">
             <label>Image</label>
             <input type="file" name="image" class="form-control-file">
-        </div>
+        </div> 
 
         <button class="btn btn-primary">Create</button>
     </form>

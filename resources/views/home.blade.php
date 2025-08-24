@@ -5,7 +5,7 @@
 @section('content')
 
 <!-- Banner with Video Background -->
-<div class="position-relative">
+<div class="video-container position-relative">
     <video autoplay muted loop class="w-100" style="height: 100vh; object-fit: cover;">
         <source src="{{ asset('videos/banner1.mp4') }}" type="video/mp4">
         Your browser does not support the video tag.
@@ -13,9 +13,11 @@
 
     <!-- Text Over Video -->
     <div class="position-absolute top-50 start-50 translate-middle text-center text-white" style="z-index: 2;">
-        <h1 class="display-4 text-marge" >Let Your Soul Roar</h1>
-        <p class="lead">step into the alchemy of soul, body, and breath.<br>the path remembers you.</p>
-        <a href="#" class="btn btn-light rounded-pill px-4 mt-3">start your healing journey</a>
+        <h1 class="display-4 text-marge"  >Let Your Soul Roar</h1>
+        <p class="lead">Step into the alchemy of Mind, Body and Soul trinity.
+                Let the inner alchemy of your soul path 
+                remembers you!</p>
+        <a href="/book-session" class="btn btn-light rounded-pill px-4 mt-3">start your healing journey</a>
     </div> 
 </div>
 
@@ -26,7 +28,7 @@
             <p class="text-center mb-3" style="font-family: 'Marge', serif;letter-spacing: 4%;font-weight: 400;letter-spacing: 0.04em;font-size :46px;margin:auto">The LYSR Project</p>
             <p class="text-center">
                 <strong style="text-transform: capitalize;">bridging ancient wisdom with modern healing.</strong><br>
-                the lysr project is a sacred movement uniting timeless traditions yogic science, ayurveda, shamanism, and
+                The lysr project is a sacred movement uniting timeless traditions yogic science, ayurveda, shamanism, and
                 celtic wisdom to awaken mind, body, and soul. we offer a sanctuary for transformation through immersive
                 retreats, healing blogs, and conscious workshops. this is a space beyond borders and identities, where all
                 beings are welcome, and the soul is free to remember, heal, and rise.
