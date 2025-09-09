@@ -1,0 +1,319 @@
+@font-face { font-family: "Marge"; src: url("/fonts/marge/Marge.eot"); /* IE9 Compat Modes */ 
+    src: url("/fonts/marge/Marge.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */ 
+    url("/fonts/marge/Marge.woff") format("woff"), /* Modern Browsers */ 
+    url("/fonts/marge/Marge.ttf") format("truetype"), /* Safari, Android, iOS */ 
+    url("/fonts/marge/Marge.otf") format("opentype"); /* Optional */ 
+    font-weight: normal; 
+    font-style: normal; }
+
+/* woking in public css */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+.hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    color: #fff;
+    padding: 2rem;
+}
+.lysr-pg{
+    font-family:'Marge', serif;letter-spacing: 4px; padding-top:5px;padding-bottom:5px;font-size:46px
+}
+.lysr-stg{
+    text-transform: capitalize; font-size:18px
+}
+.project-box {
+    max-width: 1132px;
+    margin: auto;
+    background-image: url("/images/Lysr-bg.png"); 
+    background-size: cover; /* fills the area */ 
+    background-position: center; /* centers the image */ 
+    background-repeat: no-repeat; /* no tiling */
+    margin-top:-150px; 
+    z-index: 3;
+    position: relative;
+}
+.carousel .card {
+    border: none;
+    background: #EDEACE4D;
+}
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    background-color: #fff;
+}
+
+.navbar .nav-link {
+    font-weight: 500;
+    margin: 0 8px;
+}
+
+.navbar .btn {
+    border-radius: 30px;
+    font-size: 0.9rem;
+    padding: 6px 16px;
+}
+
+.footer {
+    font-size: 0.9rem;
+}
+
+.footer h6 {
+    margin-bottom: 1rem;
+}
+.lysr-section{
+    background-image: url("/images/Lysr-bg.png"); 
+    background-size: cover; /* fills the area */ 
+    background-position: center; /* centers the image */ 
+    background-repeat: no-repeat; /* no tiling */
+}
+.text-marge{
+    font-family: "Marge", serif; 
+    font-weight: 400;
+    font-style: normal; 
+    font-size: 72px;
+    line-height: 72px; 
+    letter-spacing: 3px;
+    vertical-align: middle; 
+    text-transform: capitalize;
+ }
+.text-marge-session{
+    font-family: "Marge", serif; 
+    font-weight: 400;
+    font-style: normal; 
+    font-size: 56px;
+    line-height: 56px; 
+    letter-spacing: 3px;
+    vertical-align: middle; 
+    text-transform: capitalize;
+}
+.divider{
+    margin-bottom:-40px; z-index: 2;
+}
+.testonomial-bg{
+    margin-top: 50px;
+    width: 100%;
+    padding-top: 50px;
+    background-image: url("/images/testono.png"); 
+    background-size: cover; /* fills the area */ 
+    background-position: center; /* centers the image */ 
+    background-repeat: no-repeat; /* no tiling */
+    color:white;
+    padding-bottom: 50px;
+}
+.testonomial-client{
+    margin: auto;
+    width: 80%;
+    font-family: "Marge", serif; 
+    font-weight: 400;
+    font-style: normal; 
+    font-size: 56px;
+    line-height: 56px; 
+    letter-spacing: 3px;
+    vertical-align: middle; 
+    text-transform: capitalize;
+    color:white;
+}
+.testonomial-p{
+    width: 80%;
+    margin: auto;
+    color:white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.hypnotherapy{
+    background-image: url("/images/Home/bg_hypnotherapy.png"); 
+    background-size: cover; /* fills the area */ 
+    background-position: center; /* centers the image */ 
+    background-repeat: no-repeat; /* no tiling */
+}
+.rounded-custom { border-top-left-radius: 100px; border-top-right-radius: 0;
+    border-bottom-left-radius: 0; border-bottom-right-radius: 0;
+     overflow: hidden; }
+.hypnotherapy-text{
+    font-family: "Marge", serif; 
+    font-weight: 400;
+    font-style: normal; 
+    font-size: 56px;
+    line-height: 56px; 
+    letter-spacing: 3px;
+    vertical-align: middle; 
+    text-transform: capitalize;
+}
+.hypnotherapy-p{
+    font-family: "Inter", serif; 
+    color: #8C5737;
+}
+.bg-gm{
+    background-color: #E3E8E3;
+}
+.mission-lysr{
+    margin: 50px;
+}
+.hypnotherapy-pad{
+padding: 70px;
+}
+/* Sessions Section */
+.sessions-section .section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2d3b2d;
+}
+
+.text-brown {
+    color: #5c3a2e; /* earthy tone for Mahesh */
+}
+
+.sessions-section .card {
+    transition: transform 0.3s ease;
+    background: #C1BC9E;
+    padding: 10px;
+}
+.sessions-section .card:hover {
+    transform: translateY(-5px);
+}
+
+.sessions-section img {
+    border-radius: 1rem;
+    object-fit: cover;
+    height: 280px;
+    width: 100%;
+}
+.bg-green { background-color: #496b5f; } 
+.accordion-button::after {
+    filter: invert(1) brightness(2); /* makes arrow white */
+}
+.read-more {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* show 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.read-more.expanded {
+    -webkit-line-clamp: unset;
+}
+/* course and yoga index */
+/* Background colors */
+.bg-light-custom {
+    background-color: #f9f8ed !important; /* light beige */
+}
+
+.bg-dark-custom {
+    background-color: #e9d1c2 !important; /* peachy beige */
+}
+
+/* Custom heading font */
+.custom-course-heading {
+    font-family: 'Marge', serif;
+    color: #2c3e34;
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+}
+.f-w{
+    color:white;
+}
+/* Brown button */
+.btn-brown {
+    background-color: #8b5e3c;
+    color: #fff;
+    border-radius: 20px;
+}
+.btn-green{
+    background-color: #647E65;
+    color: #fff;
+    border-radius: 20px;
+}
+
+.btn-brown:hover {
+    background-color: #6f4630;
+    color: #fff;
+}
+
+/* Uniform image wrapper */
+.trainer-img-wrapper {
+    width: 100%;
+    max-width: 350px;   /* keeps image size consistent */
+    height: 350px;      /* fixed height for uniformity */
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 1rem;
+}
+
+.trainer-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;  /* keeps aspect ratio while filling box */
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .text-marge{ font-family: "Marge", serif; font-weight: 400;
+        font-style: normal; font-size: 32px; line-height: 32px; 
+        letter-spacing: 2px; vertical-align: middle; 
+        text-transform: capitalize; }
+   
+   .divider{
+       margin-bottom:-40px; z-index: 2;
+   }
+   .project-box {
+    max-width: 100%;
+    text-align: center;
+}
+.hypnotherapy-text{
+    font-family: "Marge", serif; 
+    font-weight: 400;
+    font-style: normal; 
+    font-size: 32px;
+    line-height: 32px; 
+    letter-spacing: 2px;
+    vertical-align: middle; 
+    text-transform: capitalize;
+}
+.hypnotherapy-pad{
+    padding: 20px;
+    }
+
+    .text-marge-session{
+        font-family: "Marge", serif; 
+        font-weight: 400;
+        font-style: normal; 
+        font-size: 32px;
+        line-height: 32px; 
+        letter-spacing: 3px;
+        vertical-align: middle; 
+        text-transform: capitalize;
+        color: #8C5737;
+    }   
+    
+    .lysr-pg{
+        font-family:'Marge', serif;letter-spacing: 3px; padding-top:3px;padding-bottom:3px;font-size:32px
+    }
+    .lysr-stg{
+        text-transform: capitalize; font-size:14px
+    }
+    .testonomial-client{
+        width: 100%;
+        font-size: 28px;
+        line-height: 28px; 
+       
+    }
+    .testonomial-p{
+        width: 80%;
+        margin: auto;
+        color:white;
+        padding-top: 20px;
+        padding-bottom: 10px;
+    }
+}
