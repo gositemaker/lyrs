@@ -1,245 +1,204 @@
+{{-- resources/views/home.blade.php --}}
 @extends('layouts.app')
 
-@section('title', 'Let Your Soul Roar')
+@section('title', 'Home')
 
 @section('content')
 
-<!-- Banner with Video Background -->
-<div class="video-container position-relative">
-    <video autoplay muted loop class="w-100" style="height: 100vh; object-fit: cover;">
+
+{{-- Hero Section with Video Background --}}
+<section class="hero-section">
+    <video autoplay muted loop class="hero-video">
         <source src="{{ asset('videos/banner1.mp4') }}" type="video/mp4">
-        Your browser does not support the video tag.
     </video>
+    <div class="hero-overlay d-flex flex-column align-items-center justify-content-center text-center">
+        <h1 class="display-4  text-marge">Let Your Soul Roar</h1>
+        <p class="lead text-white">Step into the alchemy of Mind, Body and Soul trinity.<br> Let the inner alchemy of your soul path remembers you!</p>
+        <a href="/book-session" class="btn btn-light rounded-pill mt-3 px-4">Start Your Healing Journey</a>
+    </div>
+</section>
 
-    <!-- Text Over Video -->
-    <div class="position-absolute top-50 start-50 translate-middle text-center text-white" style="z-index: 2;">
-        <h1 class="display-4 text-marge"  >Let Your Soul Roar</h1>
-        <p class="lead">Step into the alchemy of Mind, Body and Soul trinity.
-                Let the inner alchemy of your soul path 
-                remembers you!</p>
-        <a href="/book-session" class="btn btn-light rounded-pill px-4 mt-3">start your healing journey</a>
-    </div> 
-</div>
-
-<!-- Overlapping LYSR Section -->
-<section class="position-relative" style="margin-top:-150px; z-index: 3;">
+{{-- LYSR Project --}}
+<section class="text-center ">
     <div class="container">
-        <div class="bg-green-pic text-white p-5 rounded-4 shadow" style="max-width: 1134px;height:356px; margin: 0 auto;">
-            <p class="text-center mb-3" style="font-family: 'Marge', serif;letter-spacing: 4%;font-weight: 400;letter-spacing: 0.04em;font-size :46px;margin:auto">The LYSR Project</p>
-            <p class="text-center">
-                <strong style="text-transform: capitalize;">bridging ancient wisdom with modern healing.</strong><br>
+        <div class="p-4 text-white rounded-4 shadow project-box">
+            <h3 class="lysr-pg" style="">The LYSR Project</h3>
+            <p class="mt-3 " style="width:80%; margin:auto">
+                <strong class="lysr-stg">bridging ancient wisdom with modern healing.</strong><br>
                 The lysr project is a sacred movement uniting timeless traditions yogic science, ayurveda, shamanism, and
                 celtic wisdom to awaken mind, body, and soul. we offer a sanctuary for transformation through immersive
                 retreats, healing blogs, and conscious workshops. this is a space beyond borders and identities, where all
                 beings are welcome, and the soul is free to remember, heal, and rise.
-                <br>Heal. Remember. Awaken.
+                <br>Heal. Remember. Awaken.<br>
                 <br><em style="text-transform: uppercase;">let your soul roar.</em>
             </p>
-            <div class="text-center mt-4" style="margin-bottom:-60px; z-index: 2;">
+            <br>
+            <div class="divider">
                 <img src="{{ asset('images/divider.png') }}" alt="Divider" width="200">
             </div>
+            
         </div>
     </div>
 </section>
 
-
-<!-- Mission -->
-<!-- Our Mission -->
-<section class="py-5 bg-white" style="margin-top:50px;margin-bottom:50px">
+{{-- Our Mission --}}
+<section class="py-5 mission-lysr">
     <div class="container">
         <div class="row align-items-center">
-            <!-- Text Column -->
-            <div class="col-md-7">
-                <h2 class=" mb-4" style="font-family: 'Marge', serif;letter-spacing: 4%;font-weight: 400;font-size :72px;margin:auto">Our Mission</h2>
-                <p style="font-family: 'Inter';font-size :18px;">At LYSR, we awaken human consciousness through the sacred union of mind, body, and soul.
+            <div class="col-lg-7">
+                <h2 class="text-marge">Our Mission</h2>
+               <p> At LYSR, we awaken human consciousness through the sacred union of mind, body, and soul.
                 Rooted in ancient wisdom and modern healing, we weave together yogic sciences, ayurveda, shamanism, celtic and hermetic traditions, quantum healing, and holistic psychology.
                 we are a sanctuary beyond labels, where the soul is free, and all are welcome. through retreats, workshops, and spiritual education, we guide seekers to heal, decondition, and embody their true essence.</p>
                 <p class="fst-italic" style="color: #7ba388;">
                     <strong>LYSR is not just a project, it’s a movement. a home for the awakened.<br>a roar of remembrance.</strong>
                 </p>
             </div>
-
-            <!-- Image Column -->
-            <div class="col-md-5 text-center">
-                <img src="{{ asset('images/mission.jpg') }}" class="img-fluid rounded-custom" alt="Meditation Forest">
+            <div class="col-lg-5 text-center">
+                <img src="{{ asset('images/Home/mission.png') }}" class="img-fluid rounded-4 " alt="Mission Image">
             </div>
         </div>
     </div>
 </section>
-<!-- Testimonials -->
-<section class="py-5" style="background: url('{{ asset('images/testono.png') }}') center/cover no-repeat;">
-    <div class="container text-center text-white">
-        <h2 class="mb-3" style="font-family: 'Marge', serif;letter-spacing: 4%;font-weight: 400;font-size :72px;">
-            What Our Clients Say
-        </h2>
-        <p class="mb-5" style="max-width: 700px; margin: auto;">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+
+<section class="testonomial-bg">
+    <div class="container text-center">
+        <h2 class="testonomial-client">What Our Clients Say</h2>
+        <p class="mb-4 testonomial-p">Our yoga trainer offers thoughtfully designed sessions that blend traditional practices with modern techniques. Each class is guided with care to promote strength, balance, and inner peace, ensuring an enriching experience for every participant.</p>
+
+        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+
+                {{-- First Slide --}}
+                <div class="carousel-item active">
+                    <div class="row justify-content-center">
+                        <div class="col-md-4 mb-3">
+                            <div class="card p-3 shadow rounded-4 h-100">
+                                <img src="{{ asset('images/client.jpg') }}" class="rounded-circle mx-auto mb-3" width="80" height="80" alt="">
+                                <p class="f-w">"The sessions are transformative! I feel lighter, calmer, and more balanced every time I step off the mat."</p>
+                                <h6 class="fw-bold f-w">Patricia Sanders</h6>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3 d-none d-md-block">
+                            <div class="card p-3 shadow rounded-4 h-100">
+                                <img src="{{ asset('images/client3.jpg') }}" class="rounded-circle mx-auto mb-3" width="80" height="80" alt="">
+                                <p class="f-w">"Yoga with this trainer helped me release stress after long workdays. My posture and focus have improved a lot."</p>
+                                <h6 class="fw-bold f-w">Stephanie Sharkey</h6>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3 d-none d-md-block">
+                            <div class="card p-3 shadow rounded-4 h-100">
+                                <img src="{{ asset('images/client4.jpg') }}" class="rounded-circle mx-auto mb-3" width="80" height="80" alt="">
+                                <p class="f-w">"I had back pain for years, and within a month of practice, I noticed a huge difference. Truly grateful."</p>
+                                <h6 class="fw-bold f-w">Kurt Bates</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Second Slide (add more testimonials) --}}
+                <div class="carousel-item">
+                    <div class="row justify-content-center">
+                        <div class="col-md-4 mb-3">
+                            <div class="card p-3 shadow rounded-4 h-100">
+                                <img src="{{ asset('images/client3.jpg') }}" class="rounded-circle mx-auto mb-3" width="80" height="80" alt="">
+                                <p class="f-w">"The trainer explains each pose with such clarity. Even as a beginner, I felt confident and safe practicing."</p>
+                                <h6 class="fw-bold f-w">Alex Johnson</h6>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3 d-none d-md-block">
+                            <div class="card p-3 shadow rounded-4 h-100">
+                                <img src="{{ asset('images/client4.jpg') }}" class="rounded-circle mx-auto mb-3" width="80" height="80" alt="">
+                                <p class="f-w">"The mindfulness techniques I learned not only improved my health but also my concentration in studies."</p>
+                                <h6 class="fw-bold f-w">Maria Lopez</h6>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3 d-none d-md-block">
+                            <div class="card p-3 shadow rounded-4 h-100">
+                                <img src="{{ asset('images/client.jpg') }}" class="rounded-circle mx-auto mb-3" width="80" height="80" alt="">
+                                <p class="f-w">"These yoga sessions are the best investment in my well-being. I feel energized and peaceful throughout the day."</p>
+                                <h6 class="fw-bold f-w">Mithun Kumar</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            {{-- Controls --}}
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </div>
+</section>
+<section class="py-5 ">
+    <div class="container hypnotherapy rounded-4">
+        <div class="row hypnotherapy-pad" >
+            <div class="col-lg-4">
+                <h2 class="hypnotherapy-text">Hypnotherapy</h2>
+                <p class="hypnotherapy-p">Chakra Healing + Sushumna Nadi Alignment + Kundalini Life Force Activation</p>
+                <p class="hypnotherapy-p1">Awaken your divine essence, realign your energy body, and ignite your creative life force.</p>
+                <a href="/courses" class="btn btn-brown rounded-pill">Click to Know More</a>
+            </div>
+            <div class="col-lg-2 text-center "></div>
+            <div class="col-lg-6 text-center p-2">
+                <img src="{{ asset('images/hypnotherapy.jpg') }}" class="img-fluid rounded-4" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+<section class="sessions-section py-5">
+    <div class="container text-center">
+        {{-- Title --}}
+        <h2 class="mb-3 text-marge" style="color:#2d3b2d;">Sessions</h2>
+        <div class="mb-4">
+            <img src="{{ asset('images/divider.png') }}" alt="divider" style="height:24px; width:200px">
+        </div>
+        <p class="text-muted mb-5">
+        "Big thanks to our amazing yoga trainer for such a refreshing session today! The perfect mix of calm, energy, and mindfulness — left us feeling lighter, stronger, and more centered."
         </p>
 
+        {{-- Session Trainers --}}
         <div class="row justify-content-center g-4">
-            @for($i = 0; $i < 3; $i++)
-            <div class="col-md-4">
-                <div class="position-relative bg-white bg-opacity-25 rounded-4 p-4" style="backdrop-filter: blur(10px);">
-                    <!-- Profile Image -->
-                    <div class="position-absolute top-0 start-50 translate-middle">
-                        <img src="{{ asset('images/client2.jpg') }}" 
-                             alt="Client" 
-                             class="rounded-circle border border-3 border-white" 
-                             width="80" height="80">
+            {{-- Annesha --}}
+            <div class="col-md-6 col-lg-5">
+                <a href="{{ route('yoga_sessions.by_trainer', ['trainer' => 'Annesha Bera']) }}" class="text-decoration-none">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden session-card">
+                        <img src="{{ asset('images/anesha.jpg') }}" class="card-img-top img-fluid" alt="Annesha">
+                        <div class="card-body text-center">
+                            <p class="mb-1">Sessions Offered By</p>
+                            <h5 class="fw-bold" style="color:#304636">Annesha Bera</h5>
+                            <h6 style="color:#304636"> CEO & Founder </h6>
+                        </div>
                     </div>
-                    <!-- Text -->
-                    <p class="mt-5 mb-3" style="color: white; font-size: 14px;">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
-                        Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-                    </p>
-                    <strong style="color: white; font-size: 18px;">Rick Wright</strong>
-                    <div style="font-size: 12px;">Executive Engineer</div>
-                </div>
-            </div>
-            @endfor
-        </div>
-
-        <!-- Navigation -->
-        <div class="mt-4">
-            <button class="btn btn-outline-light rounded-circle me-2">
-                <i class="bi bi-chevron-left"></i>
-            </button>
-            <button class="btn btn-outline-light rounded-circle">
-                <i class="bi bi-chevron-right"></i>
-            </button>
-        </div>
-    </div>
-</section>
-
-
-<!-- Hypnotherapy Section -->
-<section class="py-5">
-    <div class="container">
-        <div class="row align-items-center shadow-sm p-4" style="background: url('{{ asset('images/Home/bg_hypnotherapy.png') }}') center/cover no-repeat; width:1340px; height:500px; border-radius: 50px; ">
-            <!-- Left Content -->
-            <div class="col-md-7">
-                <h2 style="font-family: 'Marge', serif; font-size: 2.5rem; color: #334d3b;">
-                    Hypnotherapy
-                </h2>
-                <p class="mt-2 mb-3" style="color: #a35d3f; font-weight: 600;">
-                    Chakra Healing + Sushumna Nadi Alignment + Kundalini Life Force Activation – ₹8,888
-                </p>
-                <p style="color: #555; font-size: 1rem;">
-                    Awaken Your Divine Essence, Realign Your Energy Body, And Ignite Your Creative Life Force.
-                </p>
-                <a href="#" 
-                   class="btn mt-3 px-4 py-2"
-                   style="background-color: #647E65; color: white; border-radius: 30px;">
-                    Click To Know More
                 </a>
             </div>
 
-            <!-- Right Image -->
-            <div class="col-md-5 text-center">
-                <a href="#">
-                    <img src="{{ asset('images/Home/hypnotherapy.png') }}" 
-                         alt="Hypnotherapy Session"
-                         class="img-fluid rounded shadow-sm"
-                         style="max-height: 391px; object-fit: cover;">
+            {{-- Mahesh --}}
+            <div class="col-md-6 col-lg-5">
+                <a href="{{ route('yoga_sessions.by_trainer', ['trainer' => 'Mahesh Sir']) }}" class="text-decoration-none">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden session-card">
+                        <img src="{{ asset('images/mahesh-min.jpg') }}" class="card-img-top img-fluid" alt="Mahesh">
+                        <div class="card-body text-center">
+                            <p class="mb-1">Sessions Offered By</p>
+                            <h5 class="fw-bold text-brown">Mahesh Sir</h5>
+                            <h6 class=" text-brown">  Co-Founder </h6>
+                        </div>
+                    </div>
                 </a>
             </div>
         </div>
     </div>
 </section>
-
-<!-- session section -->
-<section class="sessions-section" style="text-align: center; padding: 80px 0;">
-    <h2 class="text-marge">Sessions</h2>
-    <span style="width:200px: height:39.5px"><img src="{{ asset('images/divider.png') }}" width="200px" height="40px" ></span>
-    <p style="max-width: 800px; margin: 0 auto 50px; font-size: 16px; line-height: 1.6;">
-        Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit. Nunc Vulputate Libero Et Velit Interdum, 
-        Ac Aliquet Odio Mattis. Class Aptent Taciti Sociosqu Ad Litora Torquent Per Conubia Nostra, 
-        Per Inceptos Himenaeos.
-    </p>
-
-    <div class="sessions-wrapper" style="display: flex; justify-content: center; gap: 50px; flex-wrap: wrap;">
-        
-        <!-- Card 1 -->
-        <div class="session-card" style="position: relative; width: 650px; height: 434px;">
-            <!-- Background -->
-            <div style="
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 650px;
-                height: 434px;
-                background: #f9f6e8; /* can be replaced with an image */
-                border-radius: 40px;
-                border: 2px solid #ddd;
-                z-index: 1;
-            "></div>
-
-            <!-- Foreground Image -->
-            <a href="{{ route('yoga_sessions.by_trainer', ['trainer' => 'Annesha Bera']) }}" >
-                <img 
-                    src="/images/session1.jpg" 
-                    alt="Annesha" 
-                    style="
-                        position: absolute;
-                        top: 30px;
-                        left: 30px;
-                        width: 590px;
-                        height: 374px;
-                        border-radius: 34px;
-                        object-fit: cover;
-                        z-index: 2;
-                    "
-                >
-                <p style="position: absolute; bottom: -60px; width: 100%; text-align: center; font-size: 12px;">
-                    Sessions Offered By<br><strong style="font-size: 14px;">Annesha Bera</strong>
-                </p>
-            </a>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="session-card" style="position: relative; width: 650px; height: 434px;">
-            <!-- Background -->
-            <div style="
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 650px;
-                height: 434px;
-                background: #f9ece6; /* can be replaced with an image */
-                border-radius: 40px;
-                border: 2px solid #ddd;
-                z-index: 1;
-            "></div>
-
-            <!-- Foreground Image -->
-            <a href="{{ route('yoga_sessions.by_trainer', ['trainer' => 'Mahesh Sir']) }}" >
-                <img 
-                    src="/images/mahesh-min.jpg" 
-                    alt="Mahesh" 
-                    style="
-                        position: absolute;
-                        top: 30px;
-                        left: 30px;
-                        width: 590px;
-                        height: 374px;
-                        border-radius: 34px;
-                        object-fit: cover;
-                        z-index: 2;
-                    "
-                >
-                <p style="position: absolute; bottom: -60px; width: 100%; text-align: center; font-size: 12px;">
-                    Sessions Offered By<br><strong style="font-size: 14px;">Mahesh Sir</strong>
-                </p>
-            </a>
-        </div>
-    </div>
-</section>
-<!-- FAQ Section -->
 <section class="py-5" style="background-image: url('{{ asset('images/faq.png') }}'); background-size: cover; background-position: center; margin-top:100px; border-radius:50px 50px 0 0 ">
     <div class="container">
         <div class="row justify-content-end">
-            <div class="col-md-7">
-                <div class="bg-green text-white p-5 rounded-4 shadow-lg" style="max-height: 100%; overflow: hidden;">
+            <div class="col-md-7" style="padding-bottom:50px;">
+                <div class="bg-green text-white p-5 rounded-4 shadow-lg" style="max-height: 100%; overflow: hidden; ">
                     <h2 class="mb-4 fw-semibold" style="font-family: 'Georgia', serif;">Do you have questions?</h2>
 
                     <div class="accordion accordion-flush" id="faqAccordion">
@@ -316,45 +275,11 @@
 
                     <div class="text-end mt-4">
                         <span class="me-2">My question is not here.</span>
-                        <a href="#" class="btn btn-light btn-sm rounded-pill">CONNECT US <i class="bi bi-arrow-up-right"></i></a>
+                        <a href="/contact" class="btn btn-light btn-sm rounded-pill">CONNECT US <i class="bi bi-arrow-up-right"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Footer -->
-<footer class="bg-dark text-white pt-5 pb-4">
-    <div class="container">
-        <div class="row text-center text-md-start">
-            <div class="col-md-4 mb-3">
-                <h5 class="fw-bold">A. energy works by annesha</h5>
-                <p>conscious living through ancient wisdom and healing</p>
-                <div>
-                    <a href="#" class="text-white me-2"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
-                </div>
-            </div>
-            <div class="col-md-4 mb-3">
-                <h6>Explore</h6>
-                <ul class="list-unstyled">
-                    <li>About us</li>
-                    <li>Priestess collections</li>
-                    <li>Yog with Mahesh</li>
-                    <li>Herbal store</li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h6>Connect</h6>
-                <ul class="list-unstyled">
-                    <li>Book a Session</li>
-                    <li>Contact us</li>
-                    <li>Support</li>
-                </ul>
-            </div>
-        </div>
-        <p class="text-center small mt-4">© 2024 energy works by annesha. All rights reserved. • silence. alchemy. conscious living.</p>
-    </div>
-</footer>
-
 @endsection

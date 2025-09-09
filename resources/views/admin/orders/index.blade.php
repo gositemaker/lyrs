@@ -6,6 +6,7 @@
     <thead>
         <tr>
             <th>User</th>
+            <th>Email</th>
             <th>Payment ID</th>
             <th>Amount</th>
             <th>Courses</th>
@@ -17,6 +18,7 @@
         @foreach($orders as $order)
         <tr>
             <td>{{ $order->user->name }}</td>
+            <td>{{ $order->user->email }}</td>
             <td>{{ $order->payment_id }}</td>
             <td>₹{{ number_format($order->amount, 2) }}</td>
             <td>{{ $order->courses }}</td>

@@ -1,73 +1,93 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+@extends('layouts.app')
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+@section('content')
+<div class="d-flex align-items-center justify-content-center vh-100 bg-light">
+    <div class="col-md-7 col-lg-5">
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-body p-3">
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-        <!-- Phone Number with Country Code -->
-        <div class="mt-4">
-            <x-input-label for="phone" :value="__('Phone Number')" />
+                <!-- Logo -->
+                <div class="text-center mb-4">
+                    <img src="{{ asset('images/Logo.jpg') }}" alt="Logo" class="img-fluid" style="max-height: 60px;">
+                </div>
 
-            <div class="flex gap-2">
-                <!-- Country Code Dropdown -->
-                <select name="country_code" id="country_code" required
-                        class="block w-1/3 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                    <option value="+91" {{ old('country_code') == '+91' ? 'selected' : '' }}>+91 🇮🇳</option>
-                    <option value="+1" {{ old('country_code') == '+1' ? 'selected' : '' }}>+1 🇺🇸</option>
-                    <option value="+44" {{ old('country_code') == '+44' ? 'selected' : '' }}>+44 🇬🇧</option>
-                    <!-- Add more if needed -->
-                </select>
+                <!-- Title -->
+                <h3 class="text-center mb-4 fw-bold text-primary">Create Your Account ✨</h3>
 
-                <!-- Phone Input -->
-                <x-text-input id="phone" class="block w-full" type="tel" name="phone" :value="old('phone')" required autocomplete="tel" />
-            </div>
+                <!-- Register Form -->
+                <form method="POST" action="{{ route('register') }}">
+                    @csrf
 
-            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
-            <x-input-error :messages="$errors->get('country_code')" class="mt-2" />
-        </div>
+                    <!-- Name -->
+                    <div class="mb-3">
+                        <x-input-label for="name" :value="__('Name')" />
+                        <x-text-input id="name" type="text" name="name"
+                            class="form-control rounded-3 @error('name') is-invalid @enderror"
+                            :value="old('name')" required autofocus autocomplete="name" />
+                        <x-input-error :messages="$errors->get('name')" class="invalid-feedback d-block" />
+                    </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <x-input-label for="email" :value="__('Email')" />
+                        <x-text-input id="email" type="email" name="email"
+                            class="form-control rounded-3 @error('email') is-invalid @enderror"
+                            :value="old('email')" required autocomplete="username" />
+                        <x-input-error :messages="$errors->get('email')" class="invalid-feedback d-block" />
+                    </div>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
+                    <!-- Phone with Country Code -->
+                    <div class="mb-3">
+                        <x-input-label for="phone" :value="__('Phone Number')" />
+                        <div class="input-group">
+                            <select name="country_code" id="country_code" class="form-select rounded-start @error('country_code') is-invalid @enderror" required>
+                                <option value="+91" {{ old('country_code') == '+91' ? 'selected' : '' }}>+91 🇮🇳</option>
+                                <option value="+1" {{ old('country_code') == '+1' ? 'selected' : '' }}>+1 🇺🇸</option>
+                                <option value="+44" {{ old('country_code') == '+44' ? 'selected' : '' }}>+44 🇬🇧</option>
+                            </select>
+                            <x-text-input id="phone" type="tel" name="phone"
+                                class="form-control rounded-end @error('phone') is-invalid @enderror"
+                                :value="old('phone')" required autocomplete="tel" />
+                        </div>
+                        <x-input-error :messages="$errors->get('phone')" class="invalid-feedback d-block" />
+                        <x-input-error :messages="$errors->get('country_code')" class="invalid-feedback d-block" />
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <x-input-label for="password" :value="__('Password')" />
+                        <x-text-input id="password" type="password" name="password"
+                            class="form-control rounded-3 @error('password') is-invalid @enderror"
                             required autocomplete="new-password" />
+                        <x-input-error :messages="$errors->get('password')" class="invalid-feedback d-block" />
+                    </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                    <!-- Confirm Password -->
+                    <div class="mb-3">
+                        <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                        <x-text-input id="password_confirmation" type="password" name="password_confirmation"
+                            class="form-control rounded-3 @error('password_confirmation') is-invalid @enderror"
+                            required autocomplete="new-password" />
+                        <x-input-error :messages="$errors->get('password_confirmation')" class="invalid-feedback d-block" />
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary w-100 py-2 rounded-3">
+                        {{ __('Register') }}
+                    </button>
+                </form>
+
+                <!-- Login Redirect -->
+                <p class="text-center mt-4 mb-0 text-muted">
+                    {{ __('Already registered?') }}
+                    <a href="{{ route('login') }}" class="fw-semibold text-primary text-decoration-none">
+                        {{ __('Log in') }}
+                    </a>
+                </p>
+
+            </div>
         </div>
+    </div>
+</div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+@endsection

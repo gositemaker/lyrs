@@ -1,17 +1,69 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+        }
+        .sidebar {
+            height: 100vh;
+            position: fixed;
+            width: 250px;
+            background: #1f2937;
+            color: #fff;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            color: #d1d5db;
+            display: block;
+            padding: 12px 20px;
+            margin: 5px 0;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+        .sidebar a:hover, .sidebar a.active {
+            background: #374151;
+            color: #fff;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 30px;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+            .content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="px-4 mb-4">
+            <h4 class="text-white">My Dashboard</h4>
         </div>
+        <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">🏠 Dashboard</a>
+        <a href="{{ route('profile.edit') }}" class="{{ request()->routeIs('profile.edit') ? 'active' : '' }}">👤 Profile</a>
+        <a href="{{ route('user.orders') }}" class="{{ request()->routeIs('user.orders') ? 'active' : '' }}">🛒 Orders</a>
+        <a href="{{ route('user.bookings') }}" class="{{ request()->routeIs('user.bookings') ? 'active' : '' }}">📅 Bookings</a>
+        <a href="{{ route('logout') }}"
+           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            🚪 Logout
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
     </div>
-</x-app-layout>
+
+    <!-- Content -->
+    <div class="content">
+        @yield('content')
+    </div>
+
+</body>
+</html>

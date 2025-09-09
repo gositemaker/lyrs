@@ -49,7 +49,7 @@
                 <option value="Booked">Booked</option>
             </select>
         </div>
-        <div class="mb-3">
+        <div class="mb-3"> 
             <label class="form-label">Image</label>
             <input type="file" name="image" class="form-control">
         </div>

@@ -18,7 +18,7 @@
                         
                         <!-- Course Info -->
                         <div class="d-flex align-items-center gap-3">
-                            <img src="{{ asset($item->course->image ?? 'images/tarot.jpg') }}" 
+                            <img src="{{ asset( 'storage/' . $item->course->image ?? 'images/tarot.jpg') }}" 
                                  alt="{{ $item->course->name }}" 
                                  class="rounded shadow-sm" 
                                  style="width: 80px; height: 80px; object-fit: cover;">

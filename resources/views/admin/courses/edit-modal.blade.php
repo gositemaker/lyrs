@@ -1,7 +1,7 @@
 <!-- Edit Modal -->
 <div class="modal fade" id="editCourseModal{{ $course->id }}" tabindex="-1">
   <div class="modal-dialog modal-lg">
-    <form method="POST" action="{{ url('admin/courses/'.$course->id) }}" class="modal-content">
+    <form method="POST" action="{{ url('admin/courses/'.$course->id) }}" enctype="multipart/form-data"  class="modal-content">
       @csrf @method('PUT')
       <div class="modal-header">
         <h5 class="modal-title">Edit Course</h5>

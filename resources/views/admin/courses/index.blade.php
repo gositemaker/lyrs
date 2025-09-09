@@ -23,6 +23,7 @@
                     <th>Price</th>
                     <th>Trainer</th>
                     <th>Status</th>
+                    <th>Image</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -36,9 +37,16 @@
                     <td>₹{{ number_format($course->price) }}</td>
                     <td>{{ $course->trainer }}</td>
                     <td>
-                        <span class="badge bg-dark">
-                            {{ $course->status ? 'Active' : 'Inactive' }}
+                        <span class="badge {{ $course->status == '1' ? 'bg-success' : 'bg-warning' }}">
+                            {{ $course->status =='1' ? 'Active' : 'Inactive' }}
                         </span>
+                    </td>
+                    <td>
+                        @if($course->image)
+                            <img src="{{ asset('storage/'.$course->image) }}" width="60">
+                        @else
+                            <small>No Image</small>
+                        @endif
                     </td>
                     <td>
                         <!-- Edit Button -->

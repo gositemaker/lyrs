@@ -1,7 +1,7 @@
 <!-- Create Course Modal -->
 <div class="modal fade" id="createCourseModal" tabindex="-1">
   <div class="modal-dialog modal-lg">
-    <form method="POST" action="{{ url('admin/courses') }}" class="modal-content">
+    <form method="POST" action="{{ url('admin/courses') }}" enctype="multipart/form-data"  class="modal-content">
       @csrf
       <div class="modal-header">
         <h5 class="modal-title">Create New Course</h5>

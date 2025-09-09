@@ -26,7 +26,6 @@ Route::post('/razorpay/payment', [RazorpayPaymentController::class, 'payment'])-
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/dashboard',[UserController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 //Route::get('admin/courses', [CourseController::class, 'index'])->name('admin.courses.index');
 
 Route::prefix('admin')->group(function () {
@@ -71,7 +70,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/sessions/{session}/book', [BookingController::class, 'store'])->name('sessions.book');
     Route::get('/booking/{booking}/success', [BookingController::class, 'success'])->name('booking.success');
 
+    Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
 
+    Route::get('/dashboard/profile', [UserController::class, 'profile'])->name('dashboard.profile');
+    Route::post('/dashboard/profile/update', [UserController::class, 'updateProfile'])->name('dashboard.profile.update');
+    Route::delete('/dashboard/profile/delete', [UserController::class, 'deleteProfile'])->name('dashboard.profile.delete');
+
+    Route::get('/dashboard/orders', [UserController::class, 'orders'])->name('dashboard.orders');
+    Route::get('/dashboard/bookings', [UserController::class, 'bookings'])->name('dashboard.bookings');
+    
 });
 // Admin Routes
 
@@ -85,5 +92,10 @@ Route::get('/book-session', [SessionCatalogController::class, 'index'])->name('b
 Route::get('/book-session/{trainer}', [SessionCatalogController::class, 'trainerSessions'])->name('yoga_sessions.by_trainer');
 Route::get('/sessions/{session}', [SessionCatalogController::class, 'show'])->name('yoga_sessions.show');
 Route::get('/sessions/{session}/slots', [BookingController::class, 'slots'])->name('sessions.slots');
-
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
 require __DIR__.'/auth.php';

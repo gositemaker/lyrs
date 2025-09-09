@@ -30,14 +30,21 @@
                 Manage Availability
             </a>
         </li>
-        <li class="nav-item"><a href="#" class="nav-link">Blog Posts</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Testimonials</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Mail Subscribers</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Team Members</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Payment Tracking</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Order Tracking</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Profile Settings</a></li>
-        <li class="nav-item"><a href="#" class="nav-link text-danger">Logout</a></li>
+        <!--<li class="nav-item"><a href="#" class="nav-link">Blog Posts</a></li>-->
+        <!--<li class="nav-item"><a href="#" class="nav-link">Testimonials</a></li>-->
+        <!--<li class="nav-item"><a href="#" class="nav-link">Mail Subscribers</a></li>-->
+        <!--<li class="nav-item"><a href="#" class="nav-link">Team Members</a></li>-->
+        <!--<li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>-->
+        <!--<li class="nav-item"><a href="#" class="nav-link">Payment Tracking</a></li>-->
+        <!--<li class="nav-item"><a href="#" class="nav-link">Order Tracking</a></li>-->
+        <!--<li class="nav-item"><a href="#" class="nav-link">Profile Settings</a></li>-->
+        <li class="nav-item">
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="nav-link text-danger">
+                    Logout
+                </button>
+            </form>
+        </li>
     </ul>
 </div>

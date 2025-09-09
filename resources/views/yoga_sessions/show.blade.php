@@ -8,7 +8,7 @@
   <div class="row g-4">
     <div class="col-md-6">
       @if($session->image)
-        <img src="{{ asset($session->image) }}" class="img-fluid rounded-4" alt="{{ $session->name }}">
+        <img src="{{ $session->image ? asset('storage/'.$session->image) : asset('images/default_yoga.jpg') }}" class="img-fluid rounded-4" alt="{{ $session->name }}">
       @endif
     </div>
     <div class="col-md-6">
