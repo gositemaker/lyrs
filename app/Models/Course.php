@@ -16,6 +16,7 @@ class Course extends Model
         'trainer',
         'certification',
         'status',
+        'image',
     ];
 
     public function trainerProfile()

@@ -29,5 +29,9 @@ class Booking extends Model
         'start_time' => 'datetime:H:i:s',
         'end_time'   => 'datetime:H:i:s',
     ];
+    public function yogaSession()
+{
+    return $this->belongsTo(YogaSession::class, 'yoga_session_id');
+}
     
 }

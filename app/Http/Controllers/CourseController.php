@@ -14,15 +14,60 @@ class CourseController extends Controller
 
     public function store(Request $request)
     {
-        Course::create($request->all());
-        return back()->with('success', 'Course created successfully.');
+        $validated = $request->validate([
+            'name'        => 'required|string',
+            'trainer'    => 'required|string', 
+            'level'       => 'required|string',
+            'type'    => 'required|string',   // saving category name not id
+            'description' => 'nullable|string',
+            'duration'    => 'required|string',
+            'price'       => 'required|numeric',
+            'certification'  => 'required',
+            'status'      => 'required',
+            'image'       => 'nullable|image|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('course', 'public');
+        }
+
+        Course::create($validated);
+        return redirect()->route('admin.courses.index')
+                         ->with('success', 'Course created successfully');
+        
     }
 
-    public function update(Request $request, Course $course)
+    public function update(Request $request, $course)
     {
-        $course->update($request->all());
-        return back()->with('success', 'Course updated successfully.');
+        $course = Course::findOrFail($course);
+    
+        $validated = $request->validate([
+            'name'          => 'required|string|max:255',
+            'trainer'       => 'required|string|max:255', 
+            'level'         => 'required|string|max:100',
+            'type'          => 'required|string|max:100',
+            'description'   => 'nullable|string',
+            'duration'      => 'required|string|max:100',
+            'price'         => 'required|numeric',
+            'certification' => 'required|string|max:255',
+            'status'        => 'required|string', // let’s just accept string (Active/Inactive)
+            'image'         => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ]);
+    
+        if ($request->hasFile('image')) {
+            if ($course->image && \Storage::disk('public')->exists($course->image)) {
+                \Storage::disk('public')->delete($course->image);
+            }
+            $validated['image'] = $request->file('image')->store('course', 'public');
+        }
+    
+        $course->update($validated);
+    
+        return redirect()->route('admin.courses.index')
+            ->with('success', 'Course updated successfully.');
     }
+    
+    
 
     public function destroy(Course $course)
     {
